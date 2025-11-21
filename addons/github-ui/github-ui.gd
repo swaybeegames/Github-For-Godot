@@ -19,3 +19,11 @@ func _exit_tree():
 	remove_control_from_docks(dock)
 	# Erase the control from the memory.
 	dock.free()
+
+func _enable_plugin():
+	var setting_path = "display/window/per_pixel_transparency/allowed"
+	var is_allowed = ProjectSettings.get_setting(setting_path)
+	if not is_allowed:
+		ProjectSettings.set_setting(setting_path, true)
+		ProjectSettings.save()
+		print("[Git Plugin] Enabled per-pixel transparency. Please restart the editor if the window looks black.")

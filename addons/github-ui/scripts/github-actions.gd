@@ -2,6 +2,8 @@
 class_name GitHub
 extends Node
 
+var link_window_scene = preload("res://addons/github-ui/scenes/link_remote_repository.tscn")
+
 @onready var commitMessageNode = $PannelContainer/InfosContainer/CommitMessageContainer/CommitMessage
 @onready var gitTree: GridContainer
 
@@ -29,7 +31,7 @@ func tree():
 		var err: int = git(["status", "--porcelain"], output)
 		
 		if err != 0:
-			print("An error occurred during the recuperation of repository changes. Error code: " + str(err))
+			alert(get_tree(), "An error occurred during the recuperation of repository changes. Error code: " + str(err))
 		else:
 			var full_output: String = "".join(output)
 			var data: Array = full_output.split("\n", false)
@@ -47,25 +49,30 @@ func tree():
 				gitTree.add_child(work_label)
 
 func commit(message: String, output):
-	print("Trying to commit.")
 	git(["add", "."], output)
-	var err = git(["commit", "-m", message], output)
-	if err:
-		print("Commit has not succeed.")
+	if git(["commit", "-m", message], output):
+		alert(get_tree(), "Commit has not succeed.")
 	else:
-		print("Commit has been done successfully.")
+		alert(get_tree(), "Commit has been done successfully.")
+		
 
-func pull():
-	pass
+func pull()->bool:
+	return git(["pull"], [])
 
 func push():
-	pass
+	return git(["push"], [])
 
-func link(addr: String):
-	var output = []
-	var err = git(["remote", "add", "origin", addr], output)
+func is_linked()->bool:
+	var err = git(["ls-remote"], [])
 	if err:
-		print("Could not link to the remote repository.")
+		return false
+	return true
+
+func link(addr: String)->bool:
+	var output = []
+	if git(["remote", "add", "origin", addr], output):
+		return false
+	return true
 
 func check_git():
 	var dir = DirAccess.open("res://")
@@ -76,22 +83,47 @@ func check_git():
 
 func init():
 	var output = []
-	var err = git(["init"], output)
-	if err:
-		print("Repository could not be initialized.")
+	if git(["init"], output):
+		alert(get_tree(), "Repository could not be initialized.")
 	else:
-		print("Repository has been initialized.")
-		err = commit("Initial commit.", output)
-		if err:
-			print("The initial commit has not succeed.")
+		alert(get_tree(), "Repository has been initialized.")
+		if commit("Initial commit.", output):
+			alert(get_tree(), "The initial commit has not succeed.")
 		else:
-			print("Made the initial commit successfully")
+			alert(get_tree(), "Made the initial commit successfully")
 	
 
 func _on_commit_button_pressed() -> void:
 	var output = []
 	var message = commitMessageNode.text
 	if message == "":
-		print("Please, write a message for the commit")
+		alert(get_tree(), "Please, write a message for the commit")
 	else :
+		print("trying to commit")
 		commit(message, output)
+
+
+func _on_link_button_pressed() -> void:
+	if not is_linked():
+		var link_window_instance: GitHubLinkWindow = link_window_scene.instantiate()
+		link_window_instance.github = self
+		add_child(link_window_instance)
+
+func _on_link_button_tree_entered() -> void:
+	var linkButton : Button = get_node("PannelContainer/GitActionContainer/LinkButton")
+	if is_linked():
+		linkButton.icon.resource_path = "res://addons/github-ui/icons/link.svg"
+	else:
+		linkButton.icon.resource_path = "res://addons/github-ui/icons/unlink.svg"
+
+static func createAlert(msg: String)->AcceptDialog:
+	var dialog = AcceptDialog.new()
+	dialog.dialog_text = msg
+	dialog.connect("close_requested", Callable(dialog, "queue_free"))
+	dialog.connect("confirmed", Callable(dialog, "queue_free"))
+	return dialog
+
+static func alert(tree, msg: String):
+	var alert = createAlert(msg)
+	tree.root.add_child(alert)
+	alert.popup_centered()

@@ -114,6 +114,8 @@ func _on_link_button_pressed() -> void:
 		var link_window_instance: GitHubLinkWindow = link_window_scene.instantiate()
 		link_window_instance.github = self
 		add_child(link_window_instance)
+	else:
+		alert(get_tree(), "A remote repository has already been linked to the local one.")
 
 func _on_link_button_tree_entered() -> void:
 	linkButton = get_node("PannelContainer/GitActionContainer/LinkButton")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmr2fqgoiuo43"]
+
+[ext_resource type="Script" uid="uid://cy0wnu7of3ymk" path="res://addons/my_custom_node/my_button.gd" id="1_as87b"]
+
+[node name="MyButton" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Bob"
+script = ExtResource("1_as87b")
+metadata/_custom_type_script = "uid://cy0wnu7of3ymk"

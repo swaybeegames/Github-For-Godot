@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccqk52htipw3"]
+
+[ext_resource type="Script" uid="uid://tqxkmabxllyb" path="res://addons/github-ui/scripts/github-actions.gd" id="1_au4cu"]
+[ext_resource type="Texture2D" uid="uid://cepkmc8evvf4j" path="res://addons/github-ui/icons/commit.svg" id="2_lqiyr"]
+[ext_resource type="Texture2D" uid="uid://47ntf711o1ul" path="res://addons/github-ui/icons/pull.svg" id="3_7sqak"]
+[ext_resource type="Texture2D" uid="uid://ltn8rt14c0d8" path="res://addons/github-ui/icons/push.svg" id="4_1uusm"]
+
+[node name="GitHubRoot" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GitHub" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_au4cu")
+
+[node name="PannelContainer" type="VBoxContainer" parent="GitHub"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InfosContainer" type="VBoxContainer" parent="GitHub/PannelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RepositoryTree" type="Tree" parent="GitHub/PannelContainer/InfosContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CommitMessageContainer" type="VBoxContainer" parent="GitHub/PannelContainer/InfosContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LabelCommitMessage" type="Label" parent="GitHub/PannelContainer/InfosContainer/CommitMessageContainer"]
+layout_mode = 2
+text = "Commit Message
+"
+
+[node name="CommitMessage" type="TextEdit" parent="GitHub/PannelContainer/InfosContainer/CommitMessageContainer"]
+clip_contents = false
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Write your commit message here. "
+wrap_mode = 1
+
+[node name="GitActionContainer" type="HBoxContainer" parent="GitHub/PannelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+alignment = 2
+
+[node name="CommitButton" type="Button" parent="GitHub/PannelContainer/GitActionContainer"]
+modulate = Color(0, 0.44313726, 0, 1)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+icon = ExtResource("2_lqiyr")
+icon_alignment = 1
+expand_icon = true
+
+[node name="PullButton" type="Button" parent="GitHub/PannelContainer/GitActionContainer"]
+modulate = Color(0, 0.5485374, 0.99808115, 1)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+icon = ExtResource("3_7sqak")
+icon_alignment = 1
+expand_icon = true
+
+[node name="PushButton" type="Button" parent="GitHub/PannelContainer/GitActionContainer"]
+modulate = Color(0.64705884, 0, 0, 1)
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+icon = ExtResource("4_1uusm")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="GitHub/PannelContainer/GitActionContainer/CommitButton" to="." method="_on_commit_button_pressed"]

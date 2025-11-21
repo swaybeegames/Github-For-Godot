@@ -106,7 +106,6 @@ icon = ExtResource("4_1uusm")
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="tree_entered" from="." to="GitHub" method="_on_git_hub_root_tree_entered"]
 [connection signal="tree_entered" from="GitHub/PannelContainer/InfosContainer/ScrollContainer/RepositoryTree" to="GitHub" method="tree"]
 [connection signal="pressed" from="GitHub/PannelContainer/GitActionContainer/LinkButton" to="GitHub" method="_on_link_button_pressed"]
 [connection signal="tree_entered" from="GitHub/PannelContainer/GitActionContainer/LinkButton" to="GitHub" method="_on_link_button_tree_entered"]

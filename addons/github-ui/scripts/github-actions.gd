@@ -116,10 +116,8 @@ func _on_link_button_pressed() -> void:
 		add_child(link_window_instance)
 
 func _on_link_button_tree_entered() -> void:
-	if is_linked():
-		change_link_icon(true)
-	else:
-		change_link_icon(false)
+	linkButton = get_node("PannelContainer/GitActionContainer/LinkButton")
+	is_linked()
 
 static func createAlert(msg: String)->AcceptDialog:
 	var dialog = AcceptDialog.new()
@@ -138,9 +136,3 @@ func change_link_icon(linked: bool):
 		linkButton.icon.resource_path == "res://addons/github-ui/icons/link.svg"
 	else:
 		linkButton.icon.resource_path = "res://addons/github-ui/icons/unlink.svg"
-	
-
-
-func _on_git_hub_root_tree_entered() -> void:
-	linkButton = get_node("PannelContainer/GitActionContainer/LinkButton")
-	is_linked()

@@ -135,8 +135,6 @@ static func alert(tree, msg: String):
 	
 func change_link_icon(linked: bool):
 	if linked:
-		linkButton.icon.resource_path == "res://addons/github-ui/icons/link.svg"
-		print("changed to not linked")
+		linkButton.icon.resource_path = "res://addons/github-ui/icons/link.svg"
 	else:
 		linkButton.icon.resource_path = "res://addons/github-ui/icons/unlink.svg"
-		print("changed to linked")

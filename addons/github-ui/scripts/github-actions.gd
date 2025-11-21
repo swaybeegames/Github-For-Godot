@@ -65,8 +65,7 @@ func push()->bool:
 	return git(["push"], [])
 
 func is_linked()->bool:
-	var err = git(["ls-remote"], [])
-	if err:
+	if git(["ls-remote"], []):
 		change_link_icon(false)
 		return false
 	change_link_icon(true)
@@ -148,7 +147,20 @@ func change_link_icon(linked: bool):
 
 
 func _on_push_button_pressed() -> void:
-	if push():
-		alert(get_tree(), "An error has occurred while trying to push to remote repository.")
-	else:
-		alert(get_tree(), "Successfully pushed to remote repository.")
+	if is_linked():
+		if push():
+			alert(get_tree(), "An error has occurred while trying to push to remote repository.")
+		else:
+			alert(get_tree(), "Successfully pushed to remote repository.")
+
+
+func _on_pull_button_pressed() -> void:
+	if is_linked():
+		if pull():
+			alert(get_tree(), "An error has occurred while trying to pull from remote repository.")
+		else:
+			alert(get_tree(), "Successfully pulled from remote repository.")
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_EDITOR_POST_SAVE:
+		tree()

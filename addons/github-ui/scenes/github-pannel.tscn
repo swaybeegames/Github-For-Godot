@@ -110,4 +110,5 @@ expand_icon = true
 [connection signal="pressed" from="GitHub/PannelContainer/GitActionContainer/LinkButton" to="GitHub" method="_on_link_button_pressed"]
 [connection signal="tree_entered" from="GitHub/PannelContainer/GitActionContainer/LinkButton" to="GitHub" method="_on_link_button_tree_entered"]
 [connection signal="pressed" from="GitHub/PannelContainer/GitActionContainer/CommitButton" to="GitHub" method="_on_commit_button_pressed"]
+[connection signal="pressed" from="GitHub/PannelContainer/GitActionContainer/PullButton" to="GitHub" method="_on_pull_button_pressed"]
 [connection signal="pressed" from="GitHub/PannelContainer/GitActionContainer/PushButton" to="GitHub" method="_on_push_button_pressed"]

@@ -54,6 +54,7 @@ func commit(message: String, output):
 		alert(get_tree(), "Commit has not succeed.")
 	else:
 		alert(get_tree(), "Commit has been done successfully.")
+		tree()
 		
 
 func pull()->bool:
@@ -99,7 +100,6 @@ func _on_commit_button_pressed() -> void:
 	if message == "":
 		alert(get_tree(), "Please, write a message for the commit")
 	else :
-		print("trying to commit")
 		commit(message, output)
 
 

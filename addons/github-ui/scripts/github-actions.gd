@@ -5,8 +5,8 @@ extends Node
 var link_window_scene = preload("res://addons/github-ui/scenes/link_remote_repository.tscn")
 
 @onready var commitMessageNode = $PannelContainer/InfosContainer/CommitMessageContainer/CommitMessage
-@onready var gitTree: GridContainer
-@onready var linkButton : Button = get_node("PannelContainer/GitActionContainer/LinkButton")
+var gitTree: GridContainer
+var linkButton : Button
 
 func git(args: Array, ou: Array):
 	return OS.execute("git", args, ou)
@@ -139,3 +139,8 @@ func change_link_icon(linked: bool):
 	else:
 		linkButton.icon.resource_path = "res://addons/github-ui/icons/unlink.svg"
 	
+
+
+func _on_git_hub_root_tree_entered() -> void:
+	linkButton = get_node("PannelContainer/GitActionContainer/LinkButton")
+	is_linked()

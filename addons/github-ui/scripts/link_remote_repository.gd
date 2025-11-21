@@ -16,8 +16,6 @@ func _on_link_button_pressed() -> void:
 		url = urlInput.text
 		if github != null:
 			if not github.link(url):
-				var alert = GitHub.createAlert("An error as occurred while trying to link a remote repository. Please, check the provided url and the ssh keys.")
-				get_tree().root.add_child(alert)
-				alert.popup_centered()
+				GitHub.alert(get_tree(), "An error as occurred while trying to link a remote repository. Please, check the provided url and the ssh keys.")
 			else:
 				queue_free()

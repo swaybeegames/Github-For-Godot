@@ -6,6 +6,7 @@ var link_window_scene = preload("res://addons/github-ui/scenes/link_remote_repos
 
 @onready var commitMessageNode = $PannelContainer/InfosContainer/CommitMessageContainer/CommitMessage
 @onready var gitTree: GridContainer
+@onready var linkButton : Button = get_node("PannelContainer/GitActionContainer/LinkButton")
 
 func git(args: Array, ou: Array):
 	return OS.execute("git", args, ou)
@@ -66,13 +67,18 @@ func push():
 func is_linked()->bool:
 	var err = git(["ls-remote"], [])
 	if err:
+		change_link_icon(false)
 		return false
+	change_link_icon(true)
 	return true
 
 func link(addr: String)->bool:
 	var output = []
 	if git(["remote", "add", "origin", addr], output):
+		change_link_icon(false)
 		return false
+	alert(get_tree(), "Remote repository has been linked successfully.")
+	change_link_icon(true)
 	return true
 
 func check_git():
@@ -110,11 +116,10 @@ func _on_link_button_pressed() -> void:
 		add_child(link_window_instance)
 
 func _on_link_button_tree_entered() -> void:
-	var linkButton : Button = get_node("PannelContainer/GitActionContainer/LinkButton")
 	if is_linked():
-		linkButton.icon.resource_path = "res://addons/github-ui/icons/link.svg"
+		change_link_icon(true)
 	else:
-		linkButton.icon.resource_path = "res://addons/github-ui/icons/unlink.svg"
+		change_link_icon(false)
 
 static func createAlert(msg: String)->AcceptDialog:
 	var dialog = AcceptDialog.new()
@@ -127,3 +132,10 @@ static func alert(tree, msg: String):
 	var alert = createAlert(msg)
 	tree.root.add_child(alert)
 	alert.popup_centered()
+	
+func change_link_icon(linked: bool):
+	if linked:
+		linkButton.icon.resource_path == "res://addons/github-ui/icons/link.svg"
+	else:
+		linkButton.icon.resource_path = "res://addons/github-ui/icons/unlink.svg"
+	

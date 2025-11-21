@@ -76,10 +76,11 @@ func link(addr: String)->bool:
 	var output = []
 	if git(["remote", "add", "origin", addr], output):
 		change_link_icon(false)
-		alert(get_tree(), GitHub.alert(get_tree(), "An error as occurred while trying to link a remote repository. Please, check the provided url and the ssh keys."))
+		alert(get_tree(), "An error as occurred while trying to link a remote repository. Please, check the provided username, repository name and Personnal Access Token.")
 		return false
 	git(["-M", "main"], [])
-	if git(["push", "-u", "origin", "main"], output):
+	if git(["push", "--set-upstream", "origin", "main"], output):
+		print(output[0])
 		change_link_icon(false)
 		GitHub.alert(get_tree(), "An error as occurred while trying to link with remote's main branch.")
 		return false

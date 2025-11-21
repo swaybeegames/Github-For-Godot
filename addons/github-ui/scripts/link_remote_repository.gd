@@ -6,14 +6,16 @@ extends Window
 var github: GitHub
 var linkButtonReady = false
 var url: String = ""
-@onready var urlInput: LineEdit = get_node("Control/VBoxContainer/Control2/URLInput")
+@onready var usernameInput: LineEdit = get_node("Control/VBoxContainer/Control/Username")
+@onready var repoNameInput: LineEdit = get_node("Control/VBoxContainer/Control2/RepoName")
+@onready var tokenInput: LineEdit = get_node("Control/VBoxContainer/Control3/Token")
 
 func _on_close_requested() -> void:
 	queue_free()
 
 func _on_link_button_pressed() -> void:
-	if urlInput != null:
-		url = urlInput.text
+	if usernameInput != null and repoNameInput != null and tokenInput != null:
+		url = "https://" + tokenInput.text + "@github.com/" + usernameInput.text + "/" + repoNameInput.text
 		if github != null:
 			if github.link(url):
 				queue_free()

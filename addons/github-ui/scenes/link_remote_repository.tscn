@@ -49,22 +49,30 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="Control/VBoxContainer/Control"]
-modulate = Color(0.78431374, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -126.5
+offset_right = 126.5
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Enter your GitHub username."
+horizontal_alignment = 1
+
+[node name="Username" type="LineEdit" parent="Control/VBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -222.5
-offset_top = -24.5
-offset_right = 222.5
-offset_bottom = 24.5
+offset_left = -192.0
+offset_top = -15.5
+offset_right = 192.0
+offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "Please, before trying to link a remote repository,
- make sure an ssh access is configured on your computer."
-horizontal_alignment = 1
 
 [node name="Control2" type="Control" parent="Control/VBoxContainer"]
 layout_mode = 2
@@ -79,10 +87,10 @@ offset_left = -126.5
 offset_right = 126.5
 offset_bottom = 23.0
 grow_horizontal = 2
-text = "Enter the remote repository link."
+text = "Enter the remote repository name."
 horizontal_alignment = 1
 
-[node name="URLInput" type="LineEdit" parent="Control/VBoxContainer/Control2"]
+[node name="RepoName" type="LineEdit" parent="Control/VBoxContainer/Control2"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -100,7 +108,37 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LinkButton" type="Button" parent="Control/VBoxContainer/Control3"]
+[node name="Label" type="Label" parent="Control/VBoxContainer/Control3"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -126.5
+offset_right = 126.5
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Provide a Personnal Access Token for this repository."
+horizontal_alignment = 1
+
+[node name="Token" type="LineEdit" parent="Control/VBoxContainer/Control3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -15.5
+offset_right = 192.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control4" type="Control" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LinkButton" type="Button" parent="Control/VBoxContainer/Control4"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -118,5 +156,7 @@ size_flags_vertical = 4
 text = "Link"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="tree_entered" from="Control/VBoxContainer/Control2/URLInput" to="." method="_on_url_input_tree_entered"]
-[connection signal="pressed" from="Control/VBoxContainer/Control3/LinkButton" to="." method="_on_link_button_pressed"]
+[connection signal="tree_entered" from="Control/VBoxContainer/Control/Username" to="." method="_on_url_input_tree_entered"]
+[connection signal="tree_entered" from="Control/VBoxContainer/Control2/RepoName" to="." method="_on_url_input_tree_entered"]
+[connection signal="tree_entered" from="Control/VBoxContainer/Control3/Token" to="." method="_on_url_input_tree_entered"]
+[connection signal="pressed" from="Control/VBoxContainer/Control4/LinkButton" to="." method="_on_link_button_pressed"]

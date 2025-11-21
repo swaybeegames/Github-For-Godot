@@ -16,6 +16,7 @@ func tree():
 	print(err)
 
 func commit(message: String, output):
+	print("Trying to commit.")
 	git(["add", "."], output)
 	var err = git(["commit", "-m", message], output)
 	if err:
@@ -61,4 +62,7 @@ func init():
 func _on_commit_button_pressed() -> void:
 	var output = []
 	var message = commitMessageNode.text
-	commit(message, output)
+	if message == "":
+		print("Please, write a message for the commit")
+	else :
+		commit(message, output)

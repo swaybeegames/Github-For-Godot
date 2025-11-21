@@ -88,4 +88,4 @@ icon = ExtResource("4_1uusm")
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="pressed" from="GitHub/PannelContainer/GitActionContainer/CommitButton" to="." method="_on_commit_button_pressed"]
+[connection signal="pressed" from="GitHub/PannelContainer/GitActionContainer/CommitButton" to="GitHub" method="_on_commit_button_pressed"]

@@ -15,6 +15,7 @@ func _enter_tree():
 		print("A repository has been created.")
 	else:
 		print("A repository exists.")
+		dockActions.tree()
 	add_control_to_dock(DOCK_SLOT_LEFT_BR, dock)
 
 

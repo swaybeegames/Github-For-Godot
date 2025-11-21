@@ -12,10 +12,6 @@ func _enter_tree():
 	dockActions = dock.get_node("GitHub")
 	if not dockActions.check_git():
 		dockActions.init()
-		print("A repository has been created.")
-	else:
-		print("A repository exists.")
-		dockActions.tree()
 	add_control_to_dock(DOCK_SLOT_LEFT_BR, dock)
 
 

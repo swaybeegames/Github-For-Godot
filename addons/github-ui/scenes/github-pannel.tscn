@@ -36,10 +36,18 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RepositoryTree" type="Tree" parent="GitHub/PannelContainer/InfosContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="GitHub/PannelContainer/InfosContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RepositoryTree" type="GridContainer" parent="GitHub/PannelContainer/InfosContainer/ScrollContainer"]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+tooltip_text = "git status --porcelain
+Fetch informations about files status"
+columns = 3
 
 [node name="CommitMessageContainer" type="VBoxContainer" parent="GitHub/PannelContainer/InfosContainer"]
 layout_mode = 2
@@ -88,4 +96,5 @@ icon = ExtResource("4_1uusm")
 icon_alignment = 1
 expand_icon = true
 
+[connection signal="tree_entered" from="GitHub/PannelContainer/InfosContainer/ScrollContainer/RepositoryTree" to="GitHub" method="tree"]
 [connection signal="pressed" from="GitHub/PannelContainer/GitActionContainer/CommitButton" to="GitHub" method="_on_commit_button_pressed"]

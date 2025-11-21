@@ -61,7 +61,7 @@ func commit(message: String, output):
 func pull()->bool:
 	return git(["pull"], [])
 
-func push():
+func push()->bool:
 	return git(["push"], [])
 
 func is_linked()->bool:
@@ -145,3 +145,10 @@ func change_link_icon(linked: bool):
 		linkButton.icon.resource_path = "res://addons/github-ui/icons/link.svg"
 	else:
 		linkButton.icon.resource_path = "res://addons/github-ui/icons/unlink.svg"
+
+
+func _on_push_button_pressed() -> void:
+	if push():
+		alert(get_tree(), "An error has occurred while trying to push to remote repository.")
+	else:
+		alert(get_tree(), "Successfully pushed to remote repository.")
